@@ -11,7 +11,7 @@ function registerRole(guild, message, roleName) {
 
         for (let role of guildMember.roles) {
             role = role[1];
-            if (role.name == "Kopfgeldjäger" || role.name == "Verrückte Helden")
+            if (role.name == "Kopfgeldjäger" || role.name == "Verrückte Helden" || role.name == "Gast")
                 guildMember.removeRole(role);
         }
 
@@ -64,7 +64,11 @@ client.on('message', message => {
         case 'vhmember':
             registerRole(guild, message, "Verrückte Helden");
             break;
-
+        
+        case 'gastmember':
+            registerRole(guild, message, "Gast");
+            break;
+            
         default:
             message.reply('den Command **`' + commandModifier + command + '`** gibt es leider nicht');
     }
