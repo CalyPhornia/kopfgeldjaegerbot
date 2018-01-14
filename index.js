@@ -53,10 +53,13 @@ client.on('message', message => {
     switch (command) {
         
         case 'ping':
-            console.log("pong");
             message.reply('pong');
             break;
-
+        
+        case 'piep':
+            message.reply('piep piep piep ich hab dich lieb...');
+            break;
+            
         case 'kgjmember':
             registerRole(guild, message, "Kopfgeldjäger");
             break;
