@@ -72,6 +72,16 @@ client.on('message', message => {
             registerRole(guild, message, "Gast");
             break;
             
+        case 'help':
+            var helpMessage =   'Verfügbare Befehle:' +
+                                '**!kgjmember** - "Kopfgeldjäger" Rolle zuweisen' +
+                                '**!vhmember** - "Verrückte Helden" Rolle zuweisen' +
+                                '**!gastmember** - "Gast" Rolle zuweisen' +
+                                '**!ping** - pong!' +
+                                '**!piep** - lass dich überraschen...';
+            message.channel.send(helpMessage);
+            break;
+            
         default:
             message.reply('den Command **`' + commandModifier + command + '`** gibt es leider nicht');
     }
