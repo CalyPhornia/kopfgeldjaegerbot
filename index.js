@@ -73,11 +73,11 @@ client.on('message', message => {
             break;
             
         case 'help':
-            var helpMessage =   'Verfügbare Befehle:' +
-                                '**!kgjmember** - "Kopfgeldjäger" Rolle zuweisen' +
-                                '**!vhmember** - "Verrückte Helden" Rolle zuweisen' +
-                                '**!gastmember** - "Gast" Rolle zuweisen' +
-                                '**!ping** - pong!' +
+            var helpMessage =   'Verfügbare Befehle:\n' +
+                                '**!kgjmember** - "Kopfgeldjäger" Rolle zuweisen\n' +
+                                '**!vhmember** - "Verrückte Helden" Rolle zuweisen\n' +
+                                '**!gastmember** - "Gast" Rolle zuweisen\n' +
+                                '**!ping** - pong!\n' +
                                 '**!piep** - lass dich überraschen...';
             message.channel.send(helpMessage);
             break;
