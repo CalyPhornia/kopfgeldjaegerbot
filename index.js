@@ -47,7 +47,7 @@ client.on('message', message => {
     }
     
     let messageElements = message.content.split(' ');
-    let command         = messageElements[0].substring(commandModifier.length);
+    let command         = messageElements[0].substring(commandModifier.length).toLowerCase();
     let guild           = message.guild;
     
     switch (command) {
