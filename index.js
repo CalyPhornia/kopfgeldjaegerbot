@@ -65,7 +65,7 @@ function readCharInfos(message, messageElements) {
     var obj = JSON.parse(str);
     
     var results = obj.Chars.filter(function(el) {
-        return el.Char.toLowerCase() == charName.toLowerCase() && el.Stars > stars;
+        return el.Char.toLowerCase() == charName.toLowerCase() && el.Stars >= stars;
     });
     
     results.forEach(function (el) {
