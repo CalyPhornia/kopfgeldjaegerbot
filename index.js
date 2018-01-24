@@ -71,9 +71,22 @@ function readCharInfos(message, messageElements) {
         return;
     }
     
+    message.channel.send("<i>" + getUpdatedDateString() + "</i>");
+    
     results.forEach(function (el) {
         message.channel.send(el.Stars + " Sterne - " + el.User);
     });
+}
+
+function getUpdatedDateString() {
+    var currentdate = new Date();
+    var datetime = "Aktualisierung: " + currentdate.getDate() + "."
+                + (currentdate.getMonth()+1)  + "." 
+                + currentdate.getFullYear() + " - "  
+                + currentdate.getHours() + ":"  
+                + currentdate.getMinutes() + ":" 
+                + currentdate.getSeconds() + " Uhr";
+                return datetime;   
 }
 
 const commandModifier = '!';
