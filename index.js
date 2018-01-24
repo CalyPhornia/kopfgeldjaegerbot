@@ -53,8 +53,6 @@ function readCharInfos(message, messageElements) {
         charName += messageElements[i];
     }
     
-    message.channel.send("Char wird ausgelesen...");
-    
     // TODO: JSON Daten auslesen...
     var str = '{ "Chars": [';
     str += '{ "Char": "Kylo Ren", "User": "Caly Phornia", "Stars": 4 },';
@@ -68,8 +66,13 @@ function readCharInfos(message, messageElements) {
         return el.Char.toLowerCase() == charName.toLowerCase() && el.Stars >= stars;
     });
     
+    if(results.length == 0) {
+        message.channel.send("Keine Treffer gefunden...");
+        return;
+    }
+    
     results.forEach(function (el) {
-        message.channel.send("User: " + el.User + ", Stars: " + el.Stars);
+        message.channel.send(el.Stars + " Sterne - " + el.User);
     });
 }
 
