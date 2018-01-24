@@ -71,7 +71,7 @@ function readCharInfos(message, messageElements) {
         return;
     }
     
-    message.channel.send("<i>" + getUpdatedDateString() + "</i>");
+    message.channel.send("*" + getUpdatedDateString() + "*");
     
     results.forEach(function (el) {
         message.channel.send(el.Stars + " Sterne - " + el.User);
