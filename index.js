@@ -40,6 +40,10 @@ function registerRole(guild, message, roleName) {
 
 function readCharInfos(messageElements) {
     
+    try {
+        
+        message.channel.send("versuche die infos auszulesen...");
+        
     var stars = parseInt(messageElements[messageElements.length - 1]) || 0;
     if(stars <= 1 || stars >= 7) {
         message.reply('Bitte am Ende die Anzahl der mind. Sterne angeben (1-7)');
@@ -47,6 +51,11 @@ function readCharInfos(messageElements) {
     }
     
     message.channel.send("TODO: Char wird bald mit " + stars + " Sternen ausgelesen :-)");
+    
+    }
+    catch(e) {
+        message.channel.send(e.message);
+    }
 }
 
 const commandModifier = '!';
