@@ -38,10 +38,8 @@ function registerRole(guild, message, roleName) {
     });
 }
 
-function readCharInfos(messageElements) {
+function readCharInfos(message, messageElements) {
     
-    try {
-        
         message.channel.send("versuche die infos auszulesen...");
         
     var stars = parseInt(messageElements[messageElements.length - 1]) || 0;
@@ -51,11 +49,6 @@ function readCharInfos(messageElements) {
     }
     
     message.channel.send("TODO: Char wird bald mit " + stars + " Sternen ausgelesen :-)");
-    
-    }
-    catch(e) {
-        message.channel.send(e);
-    }
 }
 
 const commandModifier = '!';
@@ -93,7 +86,7 @@ client.on('message', message => {
             break;
             
         case 'char':
-            readCharInfos(messageElements);
+            readCharInfos(message, messageElements);
             break;
             
         case 'help':
