@@ -38,6 +38,17 @@ function registerRole(guild, message, roleName) {
     });
 }
 
+function readCharInfos(messageElements) {
+    
+    var stars = parseInt(messageElements[messageElements.length - 1]) || 0;
+    if(stars <= 1 || stars >= 7) {
+        message.reply('Bitte am Ende die Anzahl der mind. Sterne angeben (1-7)');
+        return;
+    }
+    
+    message.channel.send("TODO: Char wird bald mit " + stars + " Sternen ausgelesen :-)");
+}
+
 const commandModifier = '!';
 
 client.on('message', message => {
@@ -70,6 +81,10 @@ client.on('message', message => {
         
         case 'gastmember':
             registerRole(guild, message, "Gast");
+            break;
+            
+        case 'char':
+            readCharInfos(messageElements);
             break;
             
         case 'help':
