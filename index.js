@@ -54,7 +54,7 @@ function readCharInfos(messageElements) {
     
     }
     catch(e) {
-        message.channel.send(e.message);
+        message.channel.send(e);
     }
 }
 
