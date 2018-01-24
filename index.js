@@ -40,15 +40,37 @@ function registerRole(guild, message, roleName) {
 
 function readCharInfos(message, messageElements) {
     
-        message.channel.send("versuche die infos auszulesen...");
-        
     var stars = parseInt(messageElements[messageElements.length - 1]) || 0;
-    if(stars <= 1 || stars >= 7) {
+    if(stars < 1 || stars > 7) {
         message.reply('Bitte am Ende die Anzahl der mind. Sterne angeben (1-7)');
         return;
     }
     
-    message.channel.send("TODO: Char wird bald mit " + stars + " Sternen ausgelesen :-)");
+    var charName = "";
+    for(var i = 1; i < messageElements.length - 1; i++) {
+        if(i > 1)
+            charName += " ";
+        charName += messageElements[i];
+    }
+    
+    message.channel.send("Char wird ausgelesen...");
+    
+    // TODO: JSON Daten auslesen...
+    var str = '{ "Chars": [';
+    str += '{ "Char": "Kylo Ren", "User": "Caly Phornia", "Stars": 4 },';
+    str += '{ "Char": "Kylo Ren", "User": "Sammelstelle", "Stars": 6 },';
+    str += '{ "Char": "Kylo Ren", "User": "Recipro", "Stars": 7 }';
+    str += "]}";
+    
+    var obj = JSON.parse(str);
+    
+    var results = obj.Chars.filter(function(el) {
+        return el.Char.toLowerCase() == charName.toLowerCase() && el.Stars > stars;
+    });
+    
+    results.forEach(function (el) {
+        message.channel.send("User: " + el.User + ", Stars: " + el.Stars);
+    });
 }
 
 const commandModifier = '!';
