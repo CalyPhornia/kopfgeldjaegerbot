@@ -71,6 +71,23 @@ function readCharInfos(message, messageElements) {
         var infos = [];
         //infos.push("*" + getUpdatedDateString() + "*");
         
+        results = results.sort(function(a, b) {
+        
+            if(a.Stars > b.Stars)
+                return 1;
+            if(a.Stars < b.Stars)
+                return -1;
+            
+            var nameA = a.User.toUpperCase();
+            var nameB = b.User.toUpperCase();
+            if (nameA < nameB)
+                return -1;
+            if (nameA > nameB)
+                return 1;
+                
+            return 0;
+        });
+        
         results.forEach(function (el) {
             if(infos.length == 0)
                 infos.push("Search **" + el.Char + "**");
