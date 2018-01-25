@@ -60,7 +60,7 @@ function readCharInfos(message, messageElements) {
         var obj = JSON.parse(data);
         
         var results = obj.Chars.filter(function(el) {
-            return el.Char.toLowerCase() == charName.toLowerCase() && el.Stars >= stars;
+            return (el.Char.toLowerCase() == charName.toLowerCase() || getShortName(el.Char).toLowerCase() == charName.toLowerCase()) && el.Stars >= stars;
         });
         
         if(results.length == 0) {
@@ -69,7 +69,7 @@ function readCharInfos(message, messageElements) {
         }
         
         var infos = [];
-        infos.push("*" + getUpdatedDateString() + "*");
+        //infos.push("*" + getUpdatedDateString() + "*");
         
         results.forEach(function (el) {
             infos.push(el.Stars + " Sterne - " + el.User);
@@ -77,6 +77,16 @@ function readCharInfos(message, messageElements) {
         
         message.channel.send(infos.join("\n"));
     });
+}
+
+function getShortName(s) {
+    
+    var elements = s.split(' ');
+    var n = "";
+    elements.forEach(function (el) {
+        n += el[0];
+    });
+    return n;    
 }
 
 function getUpdatedDateString() {
