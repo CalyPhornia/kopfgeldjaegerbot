@@ -42,31 +42,6 @@ function registerRole(guild, message, roleName) {
 
 function readCharInfos(message, messageElements) {
     
-    message.channel.send("try to read json test");
-    
-    fs.readFile("chars.json", function (err, data) {
-        message.channel.send("hat geklappt");
-        message.channel.send("data.length = " + data.length);
-    });
-    
-  /*  
-
-var url = "http://developer.cumtd.com/api/v2.2/json/GetStop?" +
-    "key=d99803c970a04223998cabd90a741633" +
-    "&stop_id=it";
-
-request({
-    url: url,
-    json: true
-}, function (error, response, body) {
-
-    if (!error && response.statusCode === 200) {
-        
-        message.channel.send(body);
-    }
-})*/
-    
-    /*
     var stars = parseInt(messageElements[messageElements.length - 1]) || 0;
     if(stars < 1 || stars > 7) {
         message.reply('Bitte am Ende die Anzahl der mind. Sterne angeben (1-7)');
@@ -80,33 +55,28 @@ request({
         charName += messageElements[i];
     }
     
-    // TODO: JSON Daten auslesen...
-    var str = '{ "Chars": [';
-    str += '{ "Char": "Kylo Ren", "User": "Caly Phornia", "Stars": 4 },';
-    str += '{ "Char": "Kylo Ren", "User": "Sammelstelle", "Stars": 6 },';
-    str += '{ "Char": "Kylo Ren", "User": "Recipro", "Stars": 7 }';
-    str += "]}";
-    
-    var obj = JSON.parse(str);
-    
-    var results = obj.Chars.filter(function(el) {
-        return el.Char.toLowerCase() == charName.toLowerCase() && el.Stars >= stars;
+    fs.readFile("chars.json", function (err, data) {
+        
+        var obj = JSON.parse(data);
+        
+        var results = obj.Chars.filter(function(el) {
+            return el.Char.toLowerCase() == charName.toLowerCase() && el.Stars >= stars;
+        });
+        
+        if(results.length == 0) {
+            message.channel.send("Keine Treffer gefunden...");
+            return;
+        }
+        
+        var infos = [];
+        infos.push("*" + getUpdatedDateString() + "*");
+        
+        results.forEach(function (el) {
+            infos.push(el.Stars + " Sterne - " + el.User);
+        });
+        
+        message.channel.send(infos.join("\n"));
     });
-    
-    if(results.length == 0) {
-        message.channel.send("Keine Treffer gefunden...");
-        return;
-    }
-    
-    var infos = [];
-    infos.push("*" + getUpdatedDateString() + "*");
-    
-    results.forEach(function (el) {
-        infos.push(el.Stars + " Sterne - " + el.User);
-    });
-    
-    message.channel.send(infos.join("\n"));
-    */
 }
 
 function getUpdatedDateString() {
