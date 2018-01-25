@@ -72,6 +72,8 @@ function readCharInfos(message, messageElements) {
         //infos.push("*" + getUpdatedDateString() + "*");
         
         results.forEach(function (el) {
+            if(infos.length == 0)
+                infos.push("Search **" + el.User + "**");
             infos.push(el.Stars + " Sterne - " + el.User);
         });
         
