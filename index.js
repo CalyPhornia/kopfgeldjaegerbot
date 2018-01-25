@@ -44,6 +44,11 @@ function readCharInfos(message, messageElements) {
     
     message.channel.send("try to read json test");
     
+    fs.readFile("chars.json", function (err, data) {
+        message.channel.send("hat geklappt");
+        message.channel.send("data.length = " + data.length);
+    });
+    
   /*  
 
 var url = "http://developer.cumtd.com/api/v2.2/json/GetStop?" +
