@@ -40,6 +40,26 @@ function registerRole(guild, message, roleName) {
 
 function readCharInfos(message, messageElements) {
     
+    message.channel.send("try to read json test");
+    
+    var request = require("request")
+
+var url = "http://developer.cumtd.com/api/v2.2/json/GetStop?" +
+    "key=d99803c970a04223998cabd90a741633" +
+    "&stop_id=it";
+
+request({
+    url: url,
+    json: true
+}, function (error, response, body) {
+
+    if (!error && response.statusCode === 200) {
+        
+        message.channel.send(body);
+    }
+})
+    
+    /*
     var stars = parseInt(messageElements[messageElements.length - 1]) || 0;
     if(stars < 1 || stars > 7) {
         message.reply('Bitte am Ende die Anzahl der mind. Sterne angeben (1-7)');
@@ -79,6 +99,7 @@ function readCharInfos(message, messageElements) {
     });
     
     message.channel.send(infos.join("\n"));
+    */
 }
 
 function getUpdatedDateString() {
