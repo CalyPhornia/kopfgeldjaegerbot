@@ -73,7 +73,7 @@ function readCharInfos(message, messageElements) {
         
         results.forEach(function (el) {
             if(infos.length == 0)
-                infos.push("Search **" + el.User + "**");
+                infos.push("Search **" + el.Char + "**");
             infos.push(el.Stars + " Sterne - " + el.User);
         });
         
