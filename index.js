@@ -71,13 +71,14 @@ function readCharInfos(message, messageElements) {
         return;
     }
     
-    var infos = "*" + getUpdatedDateString() + "*";
+    var infos = [];
+    infos.push("*" + getUpdatedDateString() + "*");
     
     results.forEach(function (el) {
-        infos += el.Stars + " Sterne - " + el.User + "\n";
+        infos.push(el.Stars + " Sterne - " + el.User);
     });
     
-    message.channel.send(infos);
+    message.channel.send(infos.join("\n"));
 }
 
 function getUpdatedDateString() {
