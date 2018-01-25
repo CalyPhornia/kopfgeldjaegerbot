@@ -1,4 +1,5 @@
-const request = require("request");
+var fs = require("fs");
+
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
@@ -43,7 +44,7 @@ function readCharInfos(message, messageElements) {
     
     message.channel.send("try to read json test");
     
-    
+  /*  
 
 var url = "http://developer.cumtd.com/api/v2.2/json/GetStop?" +
     "key=d99803c970a04223998cabd90a741633" +
@@ -58,7 +59,7 @@ request({
         
         message.channel.send(body);
     }
-})
+})*/
     
     /*
     var stars = parseInt(messageElements[messageElements.length - 1]) || 0;
