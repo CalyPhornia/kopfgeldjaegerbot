@@ -132,38 +132,26 @@ function readCharInfos(message, messageElements) {
 
         if (!error && response.statusCode === 200) {
             
-            var charName = "";
-            var baseId = "";
-            var imageUrl = "";
+            var charElement;
             
             body.some(function (el, index, _arr) {
                 
                 var name = el.name.toLowerCase();
                 if(name == charName.toLowerCase() || getShortName(name).toLowerCase() == charName.toLowerCase()) {
                     
-                    message.channel.send("el.base_id = " + el.base_id);
-                    
-                    baseId = el.base_id;
-                    
-                    message.channel.send("el.image = " + el.image);
-                    
-                    imageUrl = el.image;
-                    
-                    message.channel.send("el.name = " + el.name);
-                    
-                    charName = el.name;
+                    charElement = el;
                     return true;
                 }
                 
                 return false;
             });
             
-            if(baseId == "") {
+            if(el.base_id == "") {
                 message.channel.send("Kein Treffer gefunden...");
                 return;
             }
             
-            readCharInfosByBaseId(message, baseId, stars, charName, imageUrl);
+            readCharInfosByBaseId(message, el.base_id, stars, el.name, el.image);
         }
     })
 }
