@@ -69,12 +69,12 @@ function readCharInfos(message, messageElements) {
             body.some(function (el, index, _arr) {
                 
                 var name = el.name.toLowerCase();
+                if(name == charName.toLowerCase() || getShortName(name).toLowerCase() == charName.toLowerCase()) {
+                    baseId = el.base_id;
+                    return true;
+                }
                 
-                baseId = name;
-                
-                return true;
-                
-                return name == charName.toLowerCase() || getShortName(name).toLowerCase() == charName.toLowerCase();
+                return false;
             });
             
             message.channel.send("baseId = " + baseId);
