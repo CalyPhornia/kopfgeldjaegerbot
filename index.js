@@ -50,7 +50,9 @@ function readCharInfosByBaseId(message, baseId, stars) {
     
     request({ url: "https://swgoh.gg/api/guilds/9563/units/?format=json", json: true }, function (error, response, body) {
 
-        message.channel.send("units auflösen...");
+        message.channel.send("error = " + error);
+        message.channel.send("response.statusCode = " + response.statusCode);
+        message.channel.send("body = " + body);
 
         if (!error && response.statusCode === 200) {
             
