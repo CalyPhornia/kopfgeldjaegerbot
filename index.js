@@ -76,36 +76,20 @@ function readCharInfosByBaseId(message, baseId, stars, charName, imageUrl) {
             const embed = new Discord.RichEmbed();
             embed.setTitle(charName);
             embed.setImage(imageUrl);
-
-/*
-            var infos = [];
-            var lastStar = 0;
-            
-            results.forEach(function (el) {
-                
-                if(el.rarity != lastStar) {
-                    
-                    if(lastStar > 0)
-                        infos.push("");
-                    
-                    infos.push("**" + el.rarity + " Sterne**");
-                    lastStar = el.rarity;
-                }
-                
-                infos.push(el.power + " Power - " + el.player);
-            });*/
             
             for(var i = stars; i <= 7; i++) {
             
                 var results = users.filter(function(el) {
-                    return el.rarity == stars;
+                    return el.rarity == i;
                 });
                 
+                var infos = [];
                 results.forEach(function (el) {
                     infos.push(el.power + " Power - " + el.player);
                 });
                 
-                embed.addField("**" + i + " Sterne**", infos.join("\n"));
+                if(infos.length > 0)
+                    embed.addField("**" + i + " Sterne**", infos.join("\n"));
             }
             
             message.channel.send({embed});
