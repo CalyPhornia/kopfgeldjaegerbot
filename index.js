@@ -133,6 +133,7 @@ function readCharInfos(message, messageElements) {
         if (!error && response.statusCode === 200) {
             
             var base_id = "";
+            var image_url = "";
             
             body.some(function (el, index, _arr) {
                 
@@ -140,6 +141,7 @@ function readCharInfos(message, messageElements) {
                 if(name == charName.toLowerCase() || getShortName(name).toLowerCase() == charName.toLowerCase()) {
                     
                     base_id = el.base_id;
+                    image_url = el.image;
                     return true;
                 }
                 
@@ -151,7 +153,7 @@ function readCharInfos(message, messageElements) {
                 return;
             }
             
-            readCharInfosByBaseId(message, base_id, stars, charName, "");
+            readCharInfosByBaseId(message, base_id, stars, charName, image_url);
         }
     })
 }
