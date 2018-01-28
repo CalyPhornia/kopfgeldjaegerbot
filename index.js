@@ -216,54 +216,70 @@ client.on('message', message => {
     let command         = messageElements[0].substring(commandModifier.length).toLowerCase();
     let guild           = message.guild;
     
-    switch (command) {
+    // VH Verbund Kongresszentrum
+    if(guild.id == 402066089862758410) {
         
-        case 'ping':
-            message.reply('pong');
-            break;
+        switch (command) {
         
-        case 'piep':
-            message.reply('piep piep piep ich hab dich lieb...');
-            break;
+            case 'ping':
+                message.reply('pong');
+                break;
             
-        case 'kgjmember':
-            registerRole(guild, message, "Kopfgeldjäger");
-            break;
+            case 'kgjmember':
+                registerRole(guild, message, "Kopfgeldjäger");
+                break;
+                
+            case 'vhmember':
+                registerRole(guild, message, "Verrückte Helden");
+                break;
             
-        case 'vhmember':
-            registerRole(guild, message, "Verrückte Helden");
-            break;
+            case 'gastmember':
+                registerRole(guild, message, "Gast");
+                break;
+            
+            case 'help':
+                var helpMessage =   'Verfügbare Befehle:\n' +
+                                    '**!kgjmember** - "Kopfgeldjäger" Rolle zuweisen\n' +
+                                    '**!vhmember** - "Verrückte Helden" Rolle zuweisen\n' +
+                                    '**!gastmember** - "Gast" Rolle zuweisen\n' +
+                                    '**!ping** - pong!';
+                message.channel.send(helpMessage);
+                break;
+                
+            default:
+                message.reply('den Command **`' + commandModifier + command + '`** gibt es leider nicht');
+        }
+    }
+    // VH KGJ Kopfgeldjäger
+    else if(guild.id == 282945530240434178) {
         
-        case 'gastmember':
-            registerRole(guild, message, "Gast");
-            break;
+        switch (command) {
         
-        case 'c':
-        case 'char':
-            readInfos("https://swgoh.gg/api/characters/?format=json", message, messageElements);
-            break;
+            case 'ping':
+                message.reply('pong');
+                break;
             
-        case 's':
-        case 'ship':
-            readInfos("https://swgoh.gg/api/ships/?format=json", message, messageElements);
-            break;
+            case 'c':
+            case 'char':
+                readInfos("https://swgoh.gg/api/characters/?format=json", message, messageElements);
+                break;
+                
+            case 's':
+            case 'ship':
+                readInfos("https://swgoh.gg/api/ships/?format=json", message, messageElements);
+                break;
             
-        case 'server':
-            message.channel.send(guild.name + " (id = " + guild.id + ")");
-            break;
-            
-        case 'help':
-            var helpMessage =   'Verfügbare Befehle:\n' +
-                                '**!kgjmember** - "Kopfgeldjäger" Rolle zuweisen\n' +
-                                '**!vhmember** - "Verrückte Helden" Rolle zuweisen\n' +
-                                '**!gastmember** - "Gast" Rolle zuweisen\n' +
-                                '**!ping** - pong!\n' +
-                                '**!piep** - lass dich überraschen...';
-            message.channel.send(helpMessage);
-            break;
-            
-        default:
-            message.reply('den Command **`' + commandModifier + command + '`** gibt es leider nicht');
+            case 'help':
+                var helpMessage =   'Verfügbare Befehle:\n' +
+                                    '**!char [Charname] [mind. Sterne]** - User mit dem Char und mind. Sterne finden (geht auch mit !c) - Bsp.: !char Kylo Ren 6\n' +
+                                    '**!ship [Shipname] [mind. Sterne]** - User mit dem Schiff und mind. Sterne finden (geht auch mit !s) - Bsp.: !ship Endurance 6\n' +\n' +
+                                    '**!ping** - pong!';
+                message.channel.send(helpMessage);
+                break;
+                
+            default:
+                message.reply('den Command **`' + commandModifier + command + '`** gibt es leider nicht');
+        }
     }
 });
 
