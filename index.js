@@ -58,9 +58,9 @@ function readCharInfosByBaseId(message, baseId, stars) {
 
         if (!error && response.statusCode === 200) {
             
-            message.channel.send(el.GRIEVOUS);
+            message.channel.send(body.GRIEVOUS);
             
-            message.channel.send("Length = " + el.GRIEVOUS.length);
+            message.channel.send("Length = " + body.GRIEVOUS.length);
             
             
             /*
