@@ -58,6 +58,25 @@ function readCharInfos(message, messageElements) {
         charName += messageElements[i];
     }
     
+    request({ url: "https://swgoh.gg/api/characters/?format=json", json: true }, function (error, response, body) {
+
+        if (!error && response.statusCode === 200) {
+            
+            message.channel.send("baseId herausfinden...");
+            
+            var baseId = ""; 
+            
+            body.some(function (el, index, _arr) {
+                
+                var name = el.name.toLowerCase();
+                return name == charName.toLowerCase() || getShortName(name).toLowerCase() == charName.toLowerCase();
+            });
+            
+            message.channel.send("baseId = " + baseId);
+        }
+    })
+    
+    /*
     fs.readFile("chars.json", function (err, data) {
         
         var obj = JSON.parse(data);
@@ -99,6 +118,7 @@ function readCharInfos(message, messageElements) {
         
         message.channel.send(infos.join("\n"));
     });
+    */
 }
 
 function getShortName(s) {
@@ -135,30 +155,6 @@ client.on('message', message => {
     let guild           = message.guild;
     
     switch (command) {
-        
-        case 'foo':
-            message.reply('testen...');
-
-            var url = "https://swgoh.gg/api/ships/?format=json";
-
-            request({
-                url: url,
-                json: true
-            }, function (error, response, body) {
-
-                if (!error && response.statusCode === 200) {
-                    
-                    var infos = [];
-                    
-                    body.forEach(function (el) {
-                        
-                        infos.push(el.name);
-                    });
-                    
-                    message.channel.send(infos.join("\n"));
-                }
-            })
-            break;
         
         case 'ping':
             message.reply('pong');
