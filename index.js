@@ -52,7 +52,9 @@ function readCharInfosByBaseId(message, baseId, stars) {
 
         if (!error && response.statusCode === 200) {
             
-            message.channel.send("Length = " + el.GRIEVOUS.length);
+            message.channel.send("units gefunden...");
+            
+            message.channel.send("Length = " + el.GRIEVOUS);
             
             
             /*
