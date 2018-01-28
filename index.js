@@ -1,5 +1,8 @@
 var fs = require("fs");
 
+var request = require('request');
+
+
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
@@ -132,6 +135,17 @@ client.on('message', message => {
     let guild           = message.guild;
     
     switch (command) {
+        
+        case 'foo':
+            message.reply('testen...');
+
+            request('http://www.google.com', function (error, response, body) {
+                
+              message.reply('error:', error); // Print the error if one occurred
+              message.reply('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+              message.reply('body:', body); // Print the HTML for the Google homepage.
+            });
+            break;
         
         case 'ping':
             message.reply('pong');
