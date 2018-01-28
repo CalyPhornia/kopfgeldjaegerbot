@@ -46,8 +46,6 @@ function registerRole(guild, message, roleName) {
 
 function readCharInfosByBaseId(message, baseId, stars, charName, imageUrl) {
     
-    //message.channel.send("baseId = " + baseId);
-    
     request({ url: "https://swgoh.gg/api/guilds/9563/units/?format=json", json: true }, function (error, response, body) {
 
         if (!error && response.statusCode === 200) {
@@ -142,8 +140,17 @@ function readCharInfos(message, messageElements) {
                 
                 var name = el.name.toLowerCase();
                 if(name == charName.toLowerCase() || getShortName(name).toLowerCase() == charName.toLowerCase()) {
+                    
+                    message.channel.send("el.base_id = " + el.base_id);
+                    
                     baseId = el.base_id;
+                    
+                    message.channel.send("el.image = " + el.image);
+                    
                     imageUrl = el.image;
+                    
+                    message.channel.send("el.name = " + el.name);
+                    
                     charName = el.name;
                     return true;
                 }
@@ -159,50 +166,6 @@ function readCharInfos(message, messageElements) {
             readCharInfosByBaseId(message, baseId, stars, charName, imageUrl);
         }
     })
-    
-    /*
-    fs.readFile("chars.json", function (err, data) {
-        
-        var obj = JSON.parse(data);
-        
-        var results = obj.Chars.filter(function(el) {
-            return (el.Char.toLowerCase() == charName.toLowerCase() || getShortName(el.Char).toLowerCase() == charName.toLowerCase()) && el.Stars >= stars;
-        });
-        
-        if(results.length == 0) {
-            message.channel.send("Keine Treffer gefunden...");
-            return;
-        }
-        
-        var infos = [];
-        //infos.push("*" + getUpdatedDateString() + "*");
-        
-        results = results.sort(function(a, b) {
-        
-            if(a.Stars > b.Stars)
-                return 1;
-            if(a.Stars < b.Stars)
-                return -1;
-            
-            var nameA = a.User.toUpperCase();
-            var nameB = b.User.toUpperCase();
-            if (nameA < nameB)
-                return -1;
-            if (nameA > nameB)
-                return 1;
-                
-            return 0;
-        });
-        
-        results.forEach(function (el) {
-            if(infos.length == 0)
-                infos.push("Search **" + el.Char + "**");
-            infos.push(el.Stars + " Sterne - " + el.User);
-        });
-        
-        message.channel.send(infos.join("\n"));
-    });
-    */
 }
 
 function getShortName(s) {
