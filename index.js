@@ -145,6 +145,7 @@ function readCharInfos(message, messageElements) {
     })
 }
 
+
 function getShortName(s) {
     
     var elements = s.split(' ');
