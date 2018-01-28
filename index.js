@@ -44,7 +44,7 @@ function registerRole(guild, message, roleName) {
 }
 
 
-function readCharInfosByBaseId(message, baseId, stars) {
+function readCharInfosByBaseId(message, baseId, stars, charName, imageUrl) {
     
     //message.channel.send("baseId = " + baseId);
     
@@ -80,6 +80,14 @@ function readCharInfosByBaseId(message, baseId, stars) {
                 return 0;
             });
 
+            const embed = new Discord.RichEmbed();
+            embed.setTitle(charName);
+            embed.setImage(imageUrl);
+            message.channel.send({embed});
+
+
+/*
+
             var infos = [];
             
             var lastStar = 0;
@@ -98,7 +106,10 @@ function readCharInfosByBaseId(message, baseId, stars) {
                 infos.push(el.power + " Power - " + el.player);
             });
             
-            message.channel.send(infos.join("\n"));
+            //message.channel.send(infos.join("\n"));
+            
+            message.channel.send({embed});
+*/
             
         }
     })
@@ -123,13 +134,17 @@ function readCharInfos(message, messageElements) {
 
         if (!error && response.statusCode === 200) {
             
+            var charName = "";
             var baseId = "";
+            var imageUrl = "";
             
             body.some(function (el, index, _arr) {
                 
                 var name = el.name.toLowerCase();
                 if(name == charName.toLowerCase() || getShortName(name).toLowerCase() == charName.toLowerCase()) {
                     baseId = el.base_id;
+                    imageUrl = el.image;
+                    charName = el.name;
                     return true;
                 }
                 
@@ -141,7 +156,7 @@ function readCharInfos(message, messageElements) {
                 return;
             }
             
-            readCharInfosByBaseId(message, baseId, stars);
+            readCharInfosByBaseId(message, baseId, stars, charName, imageUrl);
         }
     })
     
