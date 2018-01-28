@@ -51,8 +51,7 @@ function readCharInfosByBaseId(message, baseId, stars, charName, imageUrl) {
         if (!error && response.statusCode === 200) {
             
             var users = body[baseId];
-            
-            results = results.sort(function(a, b) {
+            users = users.sort(function(a, b) {
         
                 if(a.rarity > b.rarity)
                     return 1;
