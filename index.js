@@ -89,8 +89,13 @@ function readCharInfosByBaseId(message, baseId, stars, charName, imageUrl) {
                     infos.push(el.power + " Power - " + el.player);
                 });
                 
-                if(infos.length > 0)
-                    embed.addField("**" + i + " Sterne**", infos.join("\n"));
+                if(infos.length > 0) {
+                    
+                    var text = infos.join("\n");
+                    if(text > 1024)
+                        text = text.substr(0, 1020) + "...";
+                    embed.addField("**" + i + " Sterne**", text);
+                }
             }
             
             message.channel.send({embed});
