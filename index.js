@@ -65,6 +65,11 @@ function readCharInfosByBaseId(message, baseId, stars) {
                 if(a.rarity < b.rarity)
                     return -1;
                 
+                if(a.power > b.power)
+                    return 1;
+                if(a.power < b.power)
+                    return -1;
+                
                 var nameA = a.player.toUpperCase();
                 var nameB = b.player.toUpperCase();
                 if (nameA < nameB)
@@ -76,9 +81,17 @@ function readCharInfosByBaseId(message, baseId, stars) {
             });
 
             var infos = [];
-                                    
+            
+            var lastStar = 0;
+            
             results.forEach(function (el) {
-                infos.push(el.rarity + " Sterne - " + el.player);
+                
+                if(el.rarity != lastStar) {
+                    infos.push("*" + el.rarity + " Sterne*");
+                    lastStar = el.rarity;
+                }
+                
+                infos.push(el.power + " Power - " + el.player);
             });
             
             message.channel.send(infos.join("\n"));
