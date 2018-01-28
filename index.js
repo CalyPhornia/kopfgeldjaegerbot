@@ -106,7 +106,7 @@ function readCharInfosByBaseId(message, baseId, stars, charName, imageUrl) {
                     infos.push(el.power + " Power - " + el.player);
                 });
                 
-                embed.addField("**" + i + " Sterne**", infos.join("\n");
+                embed.addField("**" + i + " Sterne**", infos.join("\n"));
             }
             
             message.channel.send({embed});
