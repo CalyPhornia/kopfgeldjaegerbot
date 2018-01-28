@@ -69,6 +69,11 @@ function readCharInfos(message, messageElements) {
             body.some(function (el, index, _arr) {
                 
                 var name = el.name.toLowerCase();
+                
+                baseId = name;
+                
+                return true;
+                
                 return name == charName.toLowerCase() || getShortName(name).toLowerCase() == charName.toLowerCase();
             });
             
