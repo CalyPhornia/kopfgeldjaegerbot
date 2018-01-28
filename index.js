@@ -87,7 +87,11 @@ function readCharInfosByBaseId(message, baseId, stars) {
             results.forEach(function (el) {
                 
                 if(el.rarity != lastStar) {
-                    infos.push("*" + el.rarity + " Sterne*");
+                    
+                    if(lastStar > 0)
+                        infos.push("");
+                    
+                    infos.push("**" + el.rarity + " Sterne**");
                     lastStar = el.rarity;
                 }
                 
