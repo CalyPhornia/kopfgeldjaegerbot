@@ -75,7 +75,7 @@ function readCharInfosByBaseId(message, baseId, stars, charName, imageUrl) {
 
             const embed = new Discord.RichEmbed();
             embed.setTitle(charName);
-            embed.setImage(imageUrl);
+            embed.setThumbnail(imageUrl);
             
             for(var i = stars; i <= 7; i++) {
             
