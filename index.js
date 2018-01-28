@@ -43,6 +43,52 @@ function registerRole(guild, message, roleName) {
     });
 }
 
+function readShipInfos(message, messageElements) {
+    
+    var stars = parseInt(messageElements[messageElements.length - 1]) || 0;
+    if(stars < 1 || stars > 7) {
+        message.reply('Bitte am Ende die Anzahl der mind. Sterne angeben (1-7)');
+        return;
+    }
+    
+    var charName = "";
+    for(var i = 1; i < messageElements.length - 1; i++) {
+        if(i > 1)
+            charName += " ";
+        charName += messageElements[i];
+    }
+    
+    request({ url: "https://swgoh.gg/api/ships/?format=json", json: true }, function (error, response, body) {
+
+        if (!error && response.statusCode === 200) {
+            
+            var base_id = "";
+            var image_url = "";
+            var char_name = "";
+            
+            body.some(function (el, index, _arr) {
+                
+                var name = el.name.toLowerCase();
+                if(name == charName.toLowerCase() || getShortName(name).toLowerCase() == charName.toLowerCase()) {
+                    
+                    base_id = el.base_id;
+                    image_url = el.image;
+                    char_name = el.name;
+                    return true;
+                }
+                
+                return false;
+            });
+            
+            if(base_id == "") {
+                message.channel.send("Kein Treffer gefunden...");
+                return;
+            }
+            
+            readCharInfosByBaseId(message, base_id, stars, char_name, "https:" + image_url);
+        }
+    })
+}
 
 function readCharInfosByBaseId(message, baseId, stars, charName, imageUrl) {
     
@@ -161,17 +207,6 @@ function getShortName(s) {
     return n;    
 }
 
-function getUpdatedDateString() {
-    var currentdate = new Date();
-    var datetime = "Aktualisierung: " + currentdate.getDate() + "."
-                + (currentdate.getMonth()+1)  + "." 
-                + currentdate.getFullYear() + " - "  
-                + currentdate.getHours() + ":"  
-                + currentdate.getMinutes() + ":" 
-                + currentdate.getSeconds() + " Uhr";
-                return datetime;   
-}
-
 const commandModifier = '!';
 
 client.on('message', message => {
@@ -207,11 +242,13 @@ client.on('message', message => {
             break;
         
         case 'c':
-            readCharInfos(message, messageElements);
-            break;
-
         case 'char':
             readCharInfos(message, messageElements);
+            break;
+            
+        case 's':
+        case 'ship':
+            readShipInfos(message, messageElements);
             break;
             
         case 'help':
