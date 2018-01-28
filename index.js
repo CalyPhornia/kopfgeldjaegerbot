@@ -146,12 +146,12 @@ function readCharInfos(message, messageElements) {
                 return false;
             });
             
-            if(el.base_id == "") {
+            if(charElement.base_id == "") {
                 message.channel.send("Kein Treffer gefunden...");
                 return;
             }
             
-            readCharInfosByBaseId(message, el.base_id, stars, el.name, el.image);
+            readCharInfosByBaseId(message, charElement.base_id, stars, charElement.name, charElement.image);
         }
     })
 }
