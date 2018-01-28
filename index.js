@@ -132,26 +132,26 @@ function readCharInfos(message, messageElements) {
 
         if (!error && response.statusCode === 200) {
             
-            var charElement;
+            var base_id = "";
             
             body.some(function (el, index, _arr) {
                 
                 var name = el.name.toLowerCase();
                 if(name == charName.toLowerCase() || getShortName(name).toLowerCase() == charName.toLowerCase()) {
                     
-                    charElement = el;
+                    base_id = el.base_id;
                     return true;
                 }
                 
                 return false;
             });
             
-            if(charElement.base_id == "") {
+            if(base_id == "") {
                 message.channel.send("Kein Treffer gefunden...");
                 return;
             }
             
-            readCharInfosByBaseId(message, charElement.base_id, stars, charElement.name, charElement.image);
+            readCharInfosByBaseId(message, base_id, stars, charName, "");
         }
     })
 }
