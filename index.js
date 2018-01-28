@@ -74,6 +74,7 @@ function readCharInfosByBaseId(message, baseId, stars, charName, imageUrl) {
             });
 
             const embed = new Discord.RichEmbed();
+            embed.setColor(4886754);
             embed.setTitle(charName);
             embed.setThumbnail(imageUrl);
             
