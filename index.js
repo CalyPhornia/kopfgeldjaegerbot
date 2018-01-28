@@ -50,42 +50,15 @@ function readCharInfosByBaseId(message, baseId, stars) {
     
     request({ url: "https://swgoh.gg/api/guilds/9563/units/?format=json", json: true }, function (error, response, body) {
 
-        /*
-        message.channel.send("error = " + error);
-        message.channel.send("response.statusCode = " + response.statusCode);
-        message.channel.send("body = " + body);
-        */
-
         if (!error && response.statusCode === 200) {
             
-            message.channel.send(body.GRIEVOUS);
+            //message.channel.send(body.GRIEVOUS);
+            message.channel.send("Length = " + obj[baseId].length);
             
-            message.channel.send("Length = " + body.GRIEVOUS.length);
-            
-            
-            /*
+                /*
             var results = body.filter(function(el) {
-            
-                return (el.Char.toLowerCase() == charName.toLowerCase() || getShortName(el.Char).toLowerCase() == charName.toLowerCase()) && el.Stars >= stars;
-            });
-            
-            var baseId = "";
-            
-            body.some(function (el, index, _arr) {
                 
-                var name = el.name.toLowerCase();
-                if(name == charName.toLowerCase() || getShortName(name).toLowerCase() == charName.toLowerCase()) {
-                    baseId = el.base_id;
-                    return true;
-                }
-                
-                return false;
-            });
-            
-            if(baseId == "") {
-                message.channel.send("Kein Treffer gefunden...");
-                return;
-            }*/
+            });*/
         }
     })
 }
