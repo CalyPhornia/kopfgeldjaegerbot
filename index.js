@@ -205,7 +205,11 @@ client.on('message', message => {
         case 'gastmember':
             registerRole(guild, message, "Gast");
             break;
-            
+        
+        case 'c':
+            readCharInfos(message, messageElements);
+            break;
+
         case 'char':
             readCharInfos(message, messageElements);
             break;
