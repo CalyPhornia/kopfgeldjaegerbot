@@ -64,6 +64,8 @@ function readCharInfos(message, messageElements) {
 
         if (!error && response.statusCode === 200) {
             
+            message.channel.send("suchen...");
+            
             body.some(function (el, index, _arr) {
                 
                 var name = el.name.toLowerCase();
