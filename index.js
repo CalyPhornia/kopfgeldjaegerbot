@@ -139,12 +139,17 @@ client.on('message', message => {
         case 'foo':
             message.reply('testen...');
 
-            request('http://www.google.com', function (error, response, body) {
-                
-              message.reply('error:', error); // Print the error if one occurred
-              message.reply('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-              message.reply('body:', body); // Print the HTML for the Google homepage.
-            });
+            var url = "https://swgoh.gg/api/ships/?format=json";
+
+            request({
+                url: url,
+                json: true
+            }, function (error, response, body) {
+
+                if (!error && response.statusCode === 200) {
+                    message.channel.send(body);
+                }
+            })
             break;
         
         case 'ping':
