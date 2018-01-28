@@ -92,7 +92,7 @@ function readCharInfosByBaseId(message, baseId, stars, charName, imageUrl) {
                 if(infos.length > 0) {
                     
                     var text = infos.join("\n");
-                    if(text > 1024)
+                    if(text.length > 1024)
                         text = text.substr(0, 1020) + "...";
                     embed.addField("**" + i + " Sterne**", text);
                 }
