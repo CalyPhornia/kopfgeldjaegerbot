@@ -1,8 +1,5 @@
 var fs = require("fs");
-
 var request = require('request');
-
-
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
@@ -58,7 +55,7 @@ function readShipInfos(message, messageElements) {
         charName += messageElements[i];
     }
     
-    request({ url: "https://swgoh.gg/api/ships/?format=json", json: true }, function (error, response, body) {
+    request({ url: "", json: true }, function (error, response, body) {
 
         if (!error && response.statusCode === 200) {
             
@@ -90,7 +87,7 @@ function readShipInfos(message, messageElements) {
     })
 }
 
-function readCharInfosByBaseId(message, baseId, stars, charName, imageUrl) {
+function readGuildInfos(message, baseId, stars, charName, imageUrl) {
     
     request({ url: "https://swgoh.gg/api/guilds/9563/units/?format=json", json: true }, function (error, response, body) {
 
@@ -149,7 +146,7 @@ function readCharInfosByBaseId(message, baseId, stars, charName, imageUrl) {
     })
 }
 
-function readCharInfos(message, messageElements) {
+function readInfos(url, message, messageElements) {
     
     var stars = parseInt(messageElements[messageElements.length - 1]) || 0;
     if(stars < 1 || stars > 7) {
@@ -164,7 +161,7 @@ function readCharInfos(message, messageElements) {
         charName += messageElements[i];
     }
     
-    request({ url: "https://swgoh.gg/api/characters/?format=json", json: true }, function (error, response, body) {
+    request({ url: url, json: true }, function (error, response, body) {
 
         if (!error && response.statusCode === 200) {
             
@@ -191,7 +188,7 @@ function readCharInfos(message, messageElements) {
                 return;
             }
             
-            readCharInfosByBaseId(message, base_id, stars, char_name, "https:" + image_url);
+            readGuildInfos(message, base_id, stars, char_name, "https:" + image_url);
         }
     })
 }
@@ -243,12 +240,12 @@ client.on('message', message => {
         
         case 'c':
         case 'char':
-            readCharInfos(message, messageElements);
+            readInfos("https://swgoh.gg/api/characters/?format=json", message, messageElements);
             break;
             
         case 's':
         case 'ship':
-            readShipInfos(message, messageElements);
+            readInfos("https://swgoh.gg/api/ships/?format=json", message, messageElements);
             break;
             
         case 'help':
