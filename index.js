@@ -148,10 +148,14 @@ client.on('message', message => {
 
                 if (!error && response.statusCode === 200) {
                     
+                    var infos = [];
+                    
                     body.forEach(function (el) {
                         
-                        message.channel.send(el.name);
+                        infos.push(el.name);
                     });
+                    
+                    message.channel.send(infos.join("\n"));
                 }
             })
             break;
