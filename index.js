@@ -58,11 +58,11 @@ function readCharInfos(message, messageElements) {
         charName += messageElements[i];
     }
     
+    var baseId = "";
+    
     request({ url: "https://swgoh.gg/api/characters/?format=json", json: true }, function (error, response, body) {
 
         if (!error && response.statusCode === 200) {
-            
-            var baseId = ""; 
             
             body.some(function (el, index, _arr) {
                 
@@ -74,10 +74,16 @@ function readCharInfos(message, messageElements) {
                 
                 return false;
             });
-            
-            message.channel.send("baseId = " + baseId);
         }
     })
+    
+    if(baseId == "") {
+        message.channel.send("Kein Treffer gefunden...");
+        return;
+    }
+    
+    message.channel.send("baseId = " + baseId);
+    
     
     /*
     fs.readFile("chars.json", function (err, data) {
