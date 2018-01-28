@@ -48,13 +48,13 @@ function readCharInfosByBaseId(message, baseId, stars) {
     
     message.channel.send("baseId = " + baseId);
     
-    request({ url: "https://swgoh.gg/api/guilds/9563/units/", json: true }, function (error, response, body) {
+    request({ url: "https://swgoh.gg/api/guilds/9563/units/?format=json", json: true }, function (error, response, body) {
+
+        message.channel.send("units auflösen...");
 
         if (!error && response.statusCode === 200) {
             
-            message.channel.send("units gefunden...");
-            
-            message.channel.send("Length = " + el.GRIEVOUS);
+            //message.channel.send("Length = " + el.GRIEVOUS);
             
             
             /*
