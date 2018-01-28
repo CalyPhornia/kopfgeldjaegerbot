@@ -46,6 +46,8 @@ function registerRole(guild, message, roleName) {
 
 function readCharInfosByBaseId(message, baseId, stars) {
     
+    message.channel.send("baseId = " + baseId);
+    
     request({ url: "https://swgoh.gg/api/guilds/9563/units/", json: true }, function (error, response, body) {
 
         if (!error && response.statusCode === 200) {
