@@ -272,7 +272,7 @@ client.on('message', message => {
             case 'help':
                 var helpMessage =   'Verfügbare Befehle:\n' +
                                     '**!char [Charname] [mind. Sterne]** - User mit dem Char und mind. Sterne finden (geht auch mit !c) - Bsp.: !char Kylo Ren 6\n' +
-                                    '**!ship [Shipname] [mind. Sterne]** - User mit dem Schiff und mind. Sterne finden (geht auch mit !s) - Bsp.: !ship Endurance 6\n' +\n' +
+                                    '**!ship [Shipname] [mind. Sterne]** - User mit dem Schiff und mind. Sterne finden (geht auch mit !s) - Bsp.: !ship Endurance 6\n' +
                                     '**!ping** - pong!';
                 message.channel.send(helpMessage);
                 break;
