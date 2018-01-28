@@ -52,10 +52,6 @@ function readCharInfosByBaseId(message, baseId, stars, charName, imageUrl) {
             
             var users = body[baseId];
             
-            var results = users.filter(function(el) {
-                return el.rarity >= stars;
-            });
-            
             results = results.sort(function(a, b) {
         
                 if(a.rarity > b.rarity)
@@ -81,13 +77,9 @@ function readCharInfosByBaseId(message, baseId, stars, charName, imageUrl) {
             const embed = new Discord.RichEmbed();
             embed.setTitle(charName);
             embed.setImage(imageUrl);
-            message.channel.send({embed});
-
 
 /*
-
             var infos = [];
-            
             var lastStar = 0;
             
             results.forEach(function (el) {
@@ -102,13 +94,22 @@ function readCharInfosByBaseId(message, baseId, stars, charName, imageUrl) {
                 }
                 
                 infos.push(el.power + " Power - " + el.player);
-            });
+            });*/
             
-            //message.channel.send(infos.join("\n"));
+            for(var i = stars; i <= 7; i++) {
+            
+                var results = users.filter(function(el) {
+                    return el.rarity == stars;
+                });
+                
+                results.forEach(function (el) {
+                    infos.push(el.power + " Power - " + el.player);
+                });
+                
+                embed.addField("**" + i + " Sterne**", infos.join("\n");
+            }
             
             message.channel.send({embed});
-*/
-            
         }
     })
 }
