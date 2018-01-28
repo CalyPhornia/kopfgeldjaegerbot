@@ -46,19 +46,43 @@ function registerRole(guild, message, roleName) {
 
 function readCharInfosByBaseId(message, baseId, stars) {
     
-    message.channel.send("baseId = " + baseId);
+    //message.channel.send("baseId = " + baseId);
     
     request({ url: "https://swgoh.gg/api/guilds/9563/units/?format=json", json: true }, function (error, response, body) {
 
         if (!error && response.statusCode === 200) {
             
-            //message.channel.send(body.GRIEVOUS);
-            message.channel.send("Length = " + body[baseId].length);
+            var users = body[baseId];
             
-                /*
-            var results = body.filter(function(el) {
+            var results = users.filter(function(el) {
+                return el.rarity >= stars;
+            });
+            
+            results = results.sort(function(a, b) {
+        
+                if(a.rarity > b.rarity)
+                    return 1;
+                if(a.rarity < b.rarity)
+                    return -1;
                 
-            });*/
+                var nameA = a.player.toUpperCase();
+                var nameB = b.player.toUpperCase();
+                if (nameA < nameB)
+                    return -1;
+                if (nameA > nameB)
+                    return 1;
+                    
+                return 0;
+            });
+
+            var infos = [];
+                                    
+            results.forEach(function (el) {
+                infos.push(el.rarity + " Sterne - " + el.player);
+            });
+            
+            message.channel.send(infos.join("\n"));
+            
         }
     })
 }
