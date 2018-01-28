@@ -2,3 +2,6 @@
 swgoh-platoons.html
 test.html
 .DS_Store
+jquery-3.3.1.min.js
+units.json
+ships.json

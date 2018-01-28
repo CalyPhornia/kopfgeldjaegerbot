@@ -43,6 +43,43 @@ function registerRole(guild, message, roleName) {
     });
 }
 
+
+function readCharInfosByBaseId(message, baseId, stars) {
+    
+    request({ url: "https://swgoh.gg/api/guilds/9563/units/", json: true }, function (error, response, body) {
+
+        if (!error && response.statusCode === 200) {
+            
+            message.channel.send("Length = " + el.GRIEVOUS.length);
+            
+            
+            /*
+            var results = body.filter(function(el) {
+            
+                return (el.Char.toLowerCase() == charName.toLowerCase() || getShortName(el.Char).toLowerCase() == charName.toLowerCase()) && el.Stars >= stars;
+            });
+            
+            var baseId = "";
+            
+            body.some(function (el, index, _arr) {
+                
+                var name = el.name.toLowerCase();
+                if(name == charName.toLowerCase() || getShortName(name).toLowerCase() == charName.toLowerCase()) {
+                    baseId = el.base_id;
+                    return true;
+                }
+                
+                return false;
+            });
+            
+            if(baseId == "") {
+                message.channel.send("Kein Treffer gefunden...");
+                return;
+            }*/
+        }
+    })
+}
+
 function readCharInfos(message, messageElements) {
     
     var stars = parseInt(messageElements[messageElements.length - 1]) || 0;
@@ -58,13 +95,11 @@ function readCharInfos(message, messageElements) {
         charName += messageElements[i];
     }
     
-    var baseId = "";
-    
     request({ url: "https://swgoh.gg/api/characters/?format=json", json: true }, function (error, response, body) {
 
         if (!error && response.statusCode === 200) {
             
-            message.channel.send("suchen...");
+            var baseId = "";
             
             body.some(function (el, index, _arr) {
                 
@@ -76,16 +111,15 @@ function readCharInfos(message, messageElements) {
                 
                 return false;
             });
+            
+            if(baseId == "") {
+                message.channel.send("Kein Treffer gefunden...");
+                return;
+            }
+            
+            readCharInfosByBaseId(message, baseId, stars);
         }
     })
-    
-    if(baseId == "") {
-        message.channel.send("Kein Treffer gefunden...");
-        return;
-    }
-    
-    message.channel.send("baseId = " + baseId);
-    
     
     /*
     fs.readFile("chars.json", function (err, data) {
