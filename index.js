@@ -153,6 +153,9 @@ function readCharInfos(message, messageElements) {
                 return;
             }
             
+            message.channel.send("base_id = " + base_id);
+            message.channel.send("image_url = " + image_url);
+            
             readCharInfosByBaseId(message, base_id, stars, charName, image_url);
         }
     })
