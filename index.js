@@ -248,6 +248,10 @@ client.on('message', message => {
             readInfos("https://swgoh.gg/api/ships/?format=json", message, messageElements);
             break;
             
+        case 'server':
+            message.channel.send(guild.name + " (id = " + guild.id + ")");
+            break;
+            
         case 'help':
             var helpMessage =   'Verfügbare Befehle:\n' +
                                 '**!kgjmember** - "Kopfgeldjäger" Rolle zuweisen\n' +
