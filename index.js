@@ -134,6 +134,7 @@ function readCharInfos(message, messageElements) {
             
             var base_id = "";
             var image_url = "";
+            var char_name = "";
             
             body.some(function (el, index, _arr) {
                 
@@ -142,6 +143,7 @@ function readCharInfos(message, messageElements) {
                     
                     base_id = el.base_id;
                     image_url = el.image;
+                    char_name = el.name;
                     return true;
                 }
                 
@@ -153,10 +155,7 @@ function readCharInfos(message, messageElements) {
                 return;
             }
             
-            message.channel.send("base_id = " + base_id);
-            message.channel.send("image_url = " + image_url);
-            
-            readCharInfosByBaseId(message, base_id, stars, charName, image_url);
+            readCharInfosByBaseId(message, base_id, stars, char_name, "https:" + image_url);
         }
     })
 }
