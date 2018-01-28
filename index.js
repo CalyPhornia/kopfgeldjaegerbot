@@ -62,8 +62,6 @@ function readCharInfos(message, messageElements) {
 
         if (!error && response.statusCode === 200) {
             
-            message.channel.send("baseId herausfinden...");
-            
             var baseId = ""; 
             
             body.some(function (el, index, _arr) {
