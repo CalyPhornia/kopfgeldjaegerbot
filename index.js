@@ -5,7 +5,16 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 
 client.on('ready', () => {
-  console.log('I am ready!');
+    
+    console.log('I am ready!');
+  
+    var adminGuild = client.guilds.get("282945530240434178");
+    console.log(adminGuild);
+
+    var adminChannel = client.channels.get('283306148747149314');
+    console.log(adminChannel);
+    //adminChannel.send("@everyone test 123");
+    //adminChannel.send("test 123");
 });
 
 function registerRole(guild, message, roleName) {
@@ -294,17 +303,6 @@ client.on('message', message => {
 });
 
 client.login(process.env.BOT_TOKEN);
-
-
-var adminGuild = client.guilds.get("282945530240434178");
-console.log(adminGuild);
-
-var adminChannel = client.channels.get('283306148747149314');
-console.log(adminChannel);
-
-
-//adminChannel.send("@everyone test 123");
-//adminChannel.send("test 123");
 
 
 /*
