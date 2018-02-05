@@ -283,7 +283,7 @@ client.on('message', message => {
                 
             case 'everywhere':
                 var channel = guild.channels.get('283306148747149314');
-                channel.send("test");
+                channel.send("@everywhere test 123");
                 break;
                 
             default:
