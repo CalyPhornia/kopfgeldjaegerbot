@@ -277,7 +277,7 @@ client.on('message', message => {
                 message.channel.send(helpMessage);
                 break;
                 
-            case 'channelId':
+            case 'channel':
                 message.channel.send(message.channel.id);
                 break;
                 
