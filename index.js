@@ -295,7 +295,7 @@ client.on('message', message => {
 
 client.login(process.env.BOT_TOKEN);
 
-var adminChannel = guild.channels.get('283306148747149314');
+var adminChannel = client.channels.get('283306148747149314');
 //adminChannel.send("@everyone test 123");
 adminChannel.send("test 123");
 
