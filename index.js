@@ -8,17 +8,10 @@ client.on('ready', () => {
     
     console.log('I am ready!');
   
-    var rule = new schedule.RecurrenceRule();
-    rule.second = [5, 20, 50];
-    var test = schedule.scheduleJob(rule, function() {
-        var channel = client.channels.get('283306148747149314');
-        channel.send("5te sekunde test...");
-    });
-  
     var ruleRancor = new schedule.RecurrenceRule();
     ruleRancor.dayOfWeek = [0, 2, 4];
     ruleRancor.hour = 17; // UTC Zeit
-    var rancor = schedule.scheduleJob(rule, function() {
+    var rancor = schedule.scheduleJob(ruleRancor, function() {
         var channel = client.channels.get('283306148747149314');
         channel.send("@everyone Bitte 'RANCOR' starten");
     });
