@@ -1,5 +1,6 @@
 var fs = require("fs");
 var request = require('request');
+var schedule = require('node-schedule');
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
@@ -293,3 +294,29 @@ client.on('message', message => {
 });
 
 client.login(process.env.BOT_TOKEN);
+
+var adminChannel = guild.channels.get('283306148747149314');
+//adminChannel.send("@everyone test 123");
+adminChannel.send("test 123");
+
+/*
+// RANCOR
+
+var ruleRancor = new schedule.RecurrenceRule();
+ruleRancor.dayOfWeek = [0, 2, 4];
+ruleRancor.hour = 18;
+
+var rancor = schedule.scheduleJob(rule, function() {
+    console.log('The answer to life, the universe, and everything!');
+});
+
+// HAAT
+
+var ruleHaat = new schedule.RecurrenceRule();
+ruleHaat.dayOfWeek = [1, 3];
+ruleHaat.hour = 18;
+
+var haat = schedule.scheduleJob(ruleHaat, function() {
+    console.log('The answer to life, the universe, and everything!');
+});
+*/
