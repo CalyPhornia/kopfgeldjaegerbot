@@ -277,6 +277,14 @@ client.on('message', message => {
                 message.channel.send(helpMessage);
                 break;
                 
+            case 'channelId':
+                message.channel.send(message.channel.id);
+                break;
+                
+            case 'everywhere':
+                //guild.channels.get('');
+                break;
+                
             default:
                 message.reply('den Command **`' + commandModifier + command + '`** gibt es leider nicht');
         }
