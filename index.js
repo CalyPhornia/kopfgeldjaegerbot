@@ -8,13 +8,10 @@ client.on('ready', () => {
     
     console.log('I am ready!');
   
-    var adminGuild = client.guilds.get("282945530240434178");
-    console.log(adminGuild);
-
     var adminChannel = client.channels.get('283306148747149314');
-    console.log(adminChannel);
+    //console.log(adminChannel);
     //adminChannel.send("@everyone test 123");
-    //adminChannel.send("test 123");
+    adminChannel.send("test 123");
 });
 
 function registerRole(guild, message, roleName) {
