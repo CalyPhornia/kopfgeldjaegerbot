@@ -8,13 +8,28 @@ client.on('ready', () => {
     
     console.log('I am ready!');
   
-    var now = new Date();
-    console.log(now);
+    var rule = new schedule.RecurrenceRule();
+    rule.second = [5, 20, 50];
+    var test = schedule.scheduleJob(rule, function() {
+        var channel = client.channels.get('283306148747149314');
+        channel.send("5te sekunde test...");
+    });
   
-    //var adminChannel = client.channels.get('283306148747149314');
-    //console.log(adminChannel);
-    //adminChannel.send("@everyone test 123");
-    //adminChannel.send("test 123");
+    var ruleRancor = new schedule.RecurrenceRule();
+    ruleRancor.dayOfWeek = [0, 2, 4];
+    ruleRancor.hour = 17; // UTC Zeit
+    var rancor = schedule.scheduleJob(rule, function() {
+        var channel = client.channels.get('283306148747149314');
+        channel.send("@everyone Bitte 'RANCOR' starten");
+    });
+
+    var ruleHaat = new schedule.RecurrenceRule();
+    ruleHaat.dayOfWeek = [1, 3];
+    ruleHaat.hour = 17; // UTC Zeit
+    var haat = schedule.scheduleJob(ruleHaat, function() {
+        var channel = client.channels.get('283306148747149314');
+        channel.send("@everyone Bitte 'HAAT' starten");
+    });
 });
 
 function registerRole(guild, message, roleName) {
@@ -303,26 +318,3 @@ client.on('message', message => {
 });
 
 client.login(process.env.BOT_TOKEN);
-
-
-/*
-// RANCOR
-
-var ruleRancor = new schedule.RecurrenceRule();
-ruleRancor.dayOfWeek = [0, 2, 4];
-ruleRancor.hour = 18;
-
-var rancor = schedule.scheduleJob(rule, function() {
-    console.log('The answer to life, the universe, and everything!');
-});
-
-// HAAT
-
-var ruleHaat = new schedule.RecurrenceRule();
-ruleHaat.dayOfWeek = [1, 3];
-ruleHaat.hour = 18;
-
-var haat = schedule.scheduleJob(ruleHaat, function() {
-    console.log('The answer to life, the universe, and everything!');
-});
-*/
