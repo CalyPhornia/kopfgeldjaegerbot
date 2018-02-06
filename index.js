@@ -168,11 +168,15 @@ function readGuildInfos(message, baseId, stars, charName, imageUrl) {
 
 function readInfos(url, message, messageElements) {
     
+    console.log("readInfos");
+    
     var stars = parseInt(messageElements[messageElements.length - 1]) || 0;
     if(stars < 1 || stars > 7) {
         message.reply('Bitte am Ende die Anzahl der mind. Sterne angeben (1-7)');
         return;
     }
+    
+    console.log("stars = " + stars);
     
     var charName = "";
     for(var i = 1; i < messageElements.length - 1; i++) {
@@ -181,9 +185,16 @@ function readInfos(url, message, messageElements) {
         charName += messageElements[i];
     }
     
+    console.log("charName = " + charName);
+    
     request({ url: url, json: true }, function (error, response, body) {
 
+        console.log("error = " + error);
+        console.log("response.statusCode = " + response.statusCode);
+
         if (!error && response.statusCode === 200) {
+            
+            console.log("vor some");
             
             var base_id = "";
             var image_url = "";
@@ -202,6 +213,8 @@ function readInfos(url, message, messageElements) {
                 
                 return false;
             });
+            
+            console.log("vor guild infos");
             
             if(base_id == "") {
                 message.channel.send("Kein Treffer gefunden...");
