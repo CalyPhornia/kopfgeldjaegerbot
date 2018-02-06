@@ -12,16 +12,18 @@ client.on('ready', () => {
     ruleRancor.dayOfWeek = [0, 2, 4];
     ruleRancor.hour = 17; // UTC Zeit
     var rancor = schedule.scheduleJob(ruleRancor, function() {
-        var channel = client.channels.get('283306148747149314');
-        channel.send("@everyone Bitte 'RANCOR' starten");
+        //var channel = client.channels.get('283306148747149314');
+        //channel.send("@everyone Bitte 'RANCOR' starten");
+        console.log("Bitte 'RANCOR' starten");
     });
 
     var ruleHaat = new schedule.RecurrenceRule();
     ruleHaat.dayOfWeek = [1, 3];
     ruleHaat.hour = 17; // UTC Zeit
     var haat = schedule.scheduleJob(ruleHaat, function() {
-        var channel = client.channels.get('283306148747149314');
-        channel.send("@everyone Bitte 'HAAT' starten");
+        //var channel = client.channels.get('283306148747149314');
+        //channel.send("@everyone Bitte 'HAAT' starten");
+        console.log("Bitte 'HAAT' starten");
     });
 });
 
