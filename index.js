@@ -60,53 +60,6 @@ function registerRole(guild, message, roleName) {
     });
 }
 
-function readShipInfos(message, messageElements) {
-    
-    var stars = parseInt(messageElements[messageElements.length - 1]) || 0;
-    if(stars < 1 || stars > 7) {
-        message.reply('Bitte am Ende die Anzahl der mind. Sterne angeben (1-7)');
-        return;
-    }
-    
-    var charName = "";
-    for(var i = 1; i < messageElements.length - 1; i++) {
-        if(i > 1)
-            charName += " ";
-        charName += messageElements[i];
-    }
-    
-    request({ url: "", json: true }, function (error, response, body) {
-
-        if (!error && response.statusCode === 200) {
-            
-            var base_id = "";
-            var image_url = "";
-            var char_name = "";
-            
-            body.some(function (el, index, _arr) {
-                
-                var name = el.name.toLowerCase();
-                if(name == charName.toLowerCase() || getShortName(name).toLowerCase() == charName.toLowerCase()) {
-                    
-                    base_id = el.base_id;
-                    image_url = el.image;
-                    char_name = el.name;
-                    return true;
-                }
-                
-                return false;
-            });
-            
-            if(base_id == "") {
-                message.channel.send("Kein Treffer gefunden...");
-                return;
-            }
-            
-            readCharInfosByBaseId(message, base_id, stars, char_name, "https:" + image_url);
-        }
-    })
-}
-
 function readGuildInfos(message, baseId, stars, charName, imageUrl) {
     
     request({ url: "https://swgoh.gg/api/guilds/9563/units/?format=json", json: true }, function (error, response, body) {
@@ -217,7 +170,6 @@ function readInfos(url, message, messageElements) {
         }
     })
 }
-
 
 function getShortName(s) {
     
