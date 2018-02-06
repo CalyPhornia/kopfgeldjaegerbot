@@ -111,7 +111,12 @@ function readGuildInfos(message, baseId, stars, charName, imageUrl) {
     
     request({ url: "https://swgoh.gg/api/guilds/9563/units/?format=json", json: true }, function (error, response, body) {
 
+        console.log("error = " + error);
+        console.log("response.statusCode = " + response.statusCode);
+
         if (!error && response.statusCode === 200) {
+            
+            console.log("weiter geht es mit guild infos");
             
             var users = body[baseId];
             users = users.sort(function(a, b) {
@@ -135,6 +140,8 @@ function readGuildInfos(message, baseId, stars, charName, imageUrl) {
                     
                 return 0;
             });
+            
+            console.log("after users sort");
 
             const embed = new Discord.RichEmbed();
             embed.setColor(3800852);
@@ -160,6 +167,9 @@ function readGuildInfos(message, baseId, stars, charName, imageUrl) {
                     embed.addField("**" + i + " Sterne**", text);
                 }
             }
+            
+            console.log("vor dem senden...");
+            console.log(embed);
             
             message.channel.send({embed});
         }
