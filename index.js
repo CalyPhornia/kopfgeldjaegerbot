@@ -247,10 +247,6 @@ client.on('message', message => {
             case 'ship':
                 readInfos("https://swgoh.gg/api/ships/?format=json", message, messageElements);
                 break;
-
-            case 'search':
-                // TODO...
-                break;
             
             case 'help':
                 var helpMessage =   'Verfügbare Befehle:\n' +
@@ -263,6 +259,10 @@ client.on('message', message => {
             case 'channel':
                 message.channel.send(message.channel.id);
                 break;
+                
+                case 'sammelstelle':
+                    message.channel.send("wer ist das denn???");
+                    break;
                 
             case 'everyone':
                 var channel = guild.channels.get('283306148747149314');
