@@ -126,11 +126,11 @@ function readGuildInfos(message, baseId, stars, charName, imageUrl) {
 
 function readInfos(url, message, messageElements) {
     
-    var stars = parseInt(messageElements[messageElements.length - 1]) || 1;
+    //var stars = parseInt(messageElements[messageElements.length - 1]) || 1;
     
-    console.log(stars);
+    //console.log(stars);
     
-    stars = 5;
+    var stars = parseInt(5);
     
     var charName = "";
     for(var i = 1; i < messageElements.length - 1; i++) {
