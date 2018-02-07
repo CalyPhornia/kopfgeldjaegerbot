@@ -126,11 +126,7 @@ function readGuildInfos(message, baseId, stars, charName, imageUrl) {
 
 function readInfos(url, message, messageElements) {
     
-    var stars = parseInt(messageElements[messageElements.length - 1]) || 0;
-    if(stars < 1 || stars > 7) {
-        message.reply('Bitte am Ende die Anzahl der mind. Sterne angeben (1-7)');
-        return;
-    }
+    var stars = parseInt(messageElements[messageElements.length - 1]) || 1;
     
     var charName = "";
     for(var i = 1; i < messageElements.length - 1; i++) {
@@ -244,6 +240,10 @@ client.on('message', message => {
             case 's':
             case 'ship':
                 readInfos("https://swgoh.gg/api/ships/?format=json", message, messageElements);
+                break;
+
+            case 'search':
+                // TODO...
                 break;
             
             case 'help':
