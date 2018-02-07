@@ -128,6 +128,8 @@ function readInfos(url, message, messageElements) {
     
     var stars = parseInt(messageElements[messageElements.length - 1]) || 1;
     
+    console.log(stars);
+    
     var charName = "";
     for(var i = 1; i < messageElements.length - 1; i++) {
         if(i > 1)
