@@ -201,7 +201,8 @@ function findRareChars(message) {
                     
                     for (var i = 0; i < chars.length; i++) {
                         
-                        console.log(chars[i]);
+                        var character = chars[i];
+                        console.log(character.base_id);
                     }
                     
                     var rareCharMessage = rareChars.join('\n');
