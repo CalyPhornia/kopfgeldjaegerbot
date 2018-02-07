@@ -197,16 +197,26 @@ function findRareChars(message) {
                 if (!error && response.statusCode === 200) {
                     
                     var rareChars = [];
-                    //rareChars.push("Kylo Ren (7/12)");
                     
                     for (var i = 0; i < chars.length; i++) {
                         
                         var character = chars[i];
-                        console.log(character.base_id);
+                        var baseId = character.base_id;
+                        var users = body[baseId];
+                        var counter = 0;
+                        
+                        for(var j = 0; j < users.length; j++) {
+                            var user = users[j];
+                            if(user.rarity == 7)
+                                counter++;
+                        }
+                        
+                        if(counter < 12)
+                            rareChars.push(character.name + " (" + counter + "/12)");
                     }
                     
                     var rareCharMessage = rareChars.join('\n');
-                    //message.channel.send(rareCharMessage);
+                    message.channel.send(rareCharMessage);
                 }
             })
         }
