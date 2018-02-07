@@ -275,8 +275,7 @@ client.on('message', message => {
                 readInfos("https://swgoh.gg/api/ships/?format=json", message, messageElements);
                 break;
                 
-                // TODO: Help
-            case 'rare'; // erstmal nur seltene Chars
+            case 'rare':
                 findRareChars(message);
                 break;
             
