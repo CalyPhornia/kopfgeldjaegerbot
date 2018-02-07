@@ -173,7 +173,7 @@ function readInfos(url, message, messageElements) {
 
 function getShortName(s) {
     
-    var elements = s.split(' ');
+    var elements = s.replace(/[^0-9a-z ]/gi, '').split(' ');
     var n = "";
     elements.forEach(function (el) {
         n += el[0];
