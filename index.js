@@ -199,8 +199,9 @@ function findRareChars(message) {
                     var rareChars = [];
                     //rareChars.push("Kylo Ren (7/12)");
                     
-                    for(var c in chars) {
-                        console.log(c);
+                    for (var i = 0; i < chars.length; i++) {
+                        
+                        console.log(chars[i]);
                     }
                     
                     var rareCharMessage = rareChars.join('\n');
