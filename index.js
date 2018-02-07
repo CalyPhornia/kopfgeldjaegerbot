@@ -130,6 +130,8 @@ function readInfos(url, message, messageElements) {
     
     console.log(stars);
     
+    stars = 5;
+    
     var charName = "";
     for(var i = 1; i < messageElements.length - 1; i++) {
         if(i > 1)
