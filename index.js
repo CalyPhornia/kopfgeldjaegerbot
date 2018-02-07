@@ -4,6 +4,9 @@ var schedule = require('node-schedule');
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
+var CHAR_URL = "https://swgoh.gg/api/characters/?format=json";
+var GUILD_URL = "https://swgoh.gg/api/guilds/9563/units/?format=json";
+
 client.on('ready', () => {
     
     console.log('I am ready!');
@@ -183,6 +186,30 @@ function getShortName(s) {
     return n;    
 }
 
+function findRareChars(message) {
+
+    request({ url: CHAR_URL, json: true }, function (charError, charResponse, chars) {
+
+        if (!charError && charResponse.statusCode === 200) {
+
+            request({ url: GUILD_URL, json: true }, function (error, response, body) {
+
+                if (!error && response.statusCode === 200) {
+                    
+                    var rareChars = [];
+                    rareChars.push("Kylo Ren (7/12");
+                    rareChars.push("Yoda (10/12");
+                    
+                    // TODO...
+                    
+                    var rareCharMessage = rareChars.join('\n');
+                    message.channel.send(rareCharMessage);
+                }
+            })
+        }
+    })
+}
+
 const commandModifier = '!';
 
 client.on('message', message => {
@@ -247,11 +274,17 @@ client.on('message', message => {
             case 'ship':
                 readInfos("https://swgoh.gg/api/ships/?format=json", message, messageElements);
                 break;
+                
+                // TODO: Help
+            case 'rare'; // erstmal nur seltene Chars
+                findRareChars(message);
+                break;
             
             case 'help':
                 var helpMessage =   'Verfügbare Befehle:\n' +
                                     '**!char [Charname] [mind. Sterne]** - User mit dem Char und mind. Sterne finden (geht auch mit !c) - Bsp.: !char Kylo Ren 6\n' +
                                     '**!ship [Shipname] [mind. Sterne]** - User mit dem Schiff und mind. Sterne finden (geht auch mit !s) - Bsp.: !ship Endurance 6\n' +
+                                    '**!rare** - Listet alle seltenen Chars auf, die weniger als 12 User mit 7 Sternen besitzen\n' +
                                     '**!ping** - pong!';
                 message.channel.send(helpMessage);
                 break;
