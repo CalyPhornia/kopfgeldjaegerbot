@@ -197,13 +197,14 @@ function findRareChars(message) {
                 if (!error && response.statusCode === 200) {
                     
                     var rareChars = [];
-                    rareChars.push("Kylo Ren (7/12");
-                    rareChars.push("Yoda (10/12");
+                    //rareChars.push("Kylo Ren (7/12)");
                     
-                    // TODO...
+                    for(var c in chars) {
+                        console.log(c);
+                    }
                     
                     var rareCharMessage = rareChars.join('\n');
-                    message.channel.send(rareCharMessage);
+                    //message.channel.send(rareCharMessage);
                 }
             })
         }
