@@ -259,11 +259,7 @@ client.on('message', message => {
             case 'channel':
                 message.channel.send(message.channel.id);
                 break;
-                
-                case 'sammelstelle':
-                    message.channel.send("wer ist das denn???");
-                    break;
-                
+
             case 'everyone':
                 var channel = guild.channels.get('283306148747149314');
                 channel.send("@everyone test 123");
