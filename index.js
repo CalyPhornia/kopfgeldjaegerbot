@@ -36,7 +36,7 @@ function registerRole(guild, message, roleName) {
 
         for (let role of guildMember.roles) {
             role = role[1];
-            if (role.name == "Kopfgeldjäger" || role.name == "Verrückte Helden" || role.name == "Gast")
+            if (role.name == "Kopfgeldjäger" || role.name == "Verrückte Helden" || role.name == "Gast" || role.name == "Gilde der Jediritter")
                 guildMember.removeRole(role);
         }
 
@@ -252,6 +252,10 @@ client.on('message', message => {
                 registerRole(guild, message, "Verrückte Helden");
                 break;
             
+            case 'gdjmember':
+                registerRole(guild, message, "Gilde der Jediritter");
+                break;
+            
             case 'gastmember':
                 registerRole(guild, message, "Gast");
                 break;
@@ -260,8 +264,8 @@ client.on('message', message => {
                 var helpMessage =   'Verfügbare Befehle:\n' +
                                     '**!kgjmember** - "Kopfgeldjäger" Rolle zuweisen\n' +
                                     '**!vhmember** - "Verrückte Helden" Rolle zuweisen\n' +
-                                    '**!gastmember** - "Gast" Rolle zuweisen\n' +
-                                    '**!ping** - pong!';
+                                    '**!gdjmember** - "Verrückte Helden" Rolle zuweisen\n' +
+                                    '**!gastmember** - "Gast" Rolle zuweisen\n';
                 message.channel.send(helpMessage);
                 break;
                 
