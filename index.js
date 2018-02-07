@@ -264,7 +264,7 @@ client.on('message', message => {
                 var helpMessage =   'Verfügbare Befehle:\n' +
                                     '**!kgjmember** - "Kopfgeldjäger" Rolle zuweisen\n' +
                                     '**!vhmember** - "Verrückte Helden" Rolle zuweisen\n' +
-                                    '**!gdjmember** - "Verrückte Helden" Rolle zuweisen\n' +
+                                    '**!gdjmember** - "Gilde der Jediritter" Rolle zuweisen\n' +
                                     '**!gastmember** - "Gast" Rolle zuweisen\n';
                 message.channel.send(helpMessage);
                 break;
