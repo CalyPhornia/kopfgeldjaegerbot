@@ -99,8 +99,9 @@ function readGuildInfos(message, baseId, stars, charName, imageUrl) {
             
             const embed = new Discord.RichEmbed();
             embed.setColor(3800852);
-            embed.setTitle(charName);
             embed.setThumbnail(imageUrl);
+            
+            var charCounter = 0;
             
             for(var i = stars; i <= 7; i++) {
             
@@ -111,6 +112,7 @@ function readGuildInfos(message, baseId, stars, charName, imageUrl) {
                 var infos = [];
                 results.forEach(function (el) {
                     infos.push(el.power + " Power - " + el.player);
+                    charCounter++;
                 });
                 
                 if(infos.length > 0) {
@@ -121,6 +123,8 @@ function readGuildInfos(message, baseId, stars, charName, imageUrl) {
                     embed.addField("**" + i + " Sterne**", text);
                 }
             }
+            
+            embed.setTitle(charName + "(" + charCounter + ")");
             
             message.channel.send({embed});
         }
