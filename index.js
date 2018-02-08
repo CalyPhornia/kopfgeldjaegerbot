@@ -109,10 +109,13 @@ function readGuildInfos(message, baseId, stars, charName, imageUrl) {
                     return el.rarity == i;
                 });
                 
+                var starCharCounter = 0;
+                
                 var infos = [];
                 results.forEach(function (el) {
                     infos.push(el.power + " Power - " + el.player);
                     charCounter++;
+                    starCharCounter++;
                 });
                 
                 if(infos.length > 0) {
@@ -120,11 +123,11 @@ function readGuildInfos(message, baseId, stars, charName, imageUrl) {
                     var text = infos.join("\n");
                     if(text.length > 1024)
                         text = text.substr(0, 1020) + "...";
-                    embed.addField("**" + i + " Sterne**", text);
+                    embed.addField("**" + i + " Sterne (" + starCharCounter + ")**", text);
                 }
             }
             
-            embed.setTitle(charName + "(" + charCounter + ")");
+            embed.setTitle(charName + " (" + charCounter + ")");
             
             message.channel.send({embed});
         }
