@@ -110,42 +110,21 @@ function readGuildInfos(message, baseId, stars, charName, imageUrl) {
                 });
                 
                 var starCharCounter = 0;
-                
-                //var infos = [];
-                var powerInfos = [];
-                var userInfos = [];
+                var infos = [];
                 
                 results.forEach(function (el) {
-                    //infos.push(el.power + " Power - " + el.player);
-                    powerInfos.push(el.power);
-                    userInfos.push(el.player);
-                    
+                    infos.push(el.power + " Power \t " + el.player);
                     charCounter++;
                     starCharCounter++;
                 });
                 
-                //if(infos.length > 0) {
-                if(powerInfos.length > 0 && userInfos.length > 0) {
+                if(infos.length > 0) {
                     
-                    /*
                     var text = infos.join("\n");
                     if(text.length > 1024)
                         text = text.substr(0, 1020) + "...";
                     
                     embed.addField("**" + i + " Sterne (" + starCharCounter + ")**", text, true);
-                    */
-                    
-                    var powerText = powerInfos.join("\n");
-                    if(powerText.length > 1024)
-                        powerText = powerText.substr(0, 1020) + "...";
-                    
-                    embed.addField("**" + i + " Sterne (" + starCharCounter + ")**", powerText, true);
-                    
-                    var userText = userInfos.join("\n");
-                    if(userText.length > 1024)
-                        userText = userText.substr(0, 1020) + "...";
-                    
-                    embed.addField("-", userText, true);
                 }
             }
             
