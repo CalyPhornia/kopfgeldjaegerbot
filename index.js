@@ -65,75 +65,81 @@ function registerRole(guild, message, roleName) {
 
 function readGuildInfos(message, baseId, stars, charName, imageUrl) {
     
-    request({ url: "https://swgoh.gg/api/guilds/9563/units/?format=json", json: true }, function (error, response, body) {
+    try {
+    
+        request({ url: "https://swgoh.gg/api/guilds/9563/units/?format=json", json: true }, function (error, response, body) {
 
-        if (!error && response.statusCode === 200) {
-            
-            var users = body[baseId];
-            if(users === undefined) {
-                console.log("users undefined");
-                return;
-            }
-            
-            users = users.sort(function(a, b) {
-        
-                if(a.rarity > b.rarity)
-                    return 1;
-                if(a.rarity < b.rarity)
-                    return -1;
+            if (!error && response.statusCode === 200) {
                 
-                if(a.power > b.power)
-                    return 1;
-                if(a.power < b.power)
-                    return -1;
-                
-                var nameA = a.player.toUpperCase();
-                var nameB = b.player.toUpperCase();
-                if (nameA < nameB)
-                    return -1;
-                if (nameA > nameB)
-                    return 1;
-                    
-                return 0;
-            });
-            
-            const embed = new Discord.RichEmbed();
-            embed.setColor(3800852);
-            embed.setThumbnail(imageUrl);
-            
-            var charCounter = 0;
-            
-            for(var i = stars; i <= 7; i++) {
-            
-                var results = users.filter(function(el) {
-                    return el.rarity == i;
-                });
-                
-                var starCharCounter = 0;
-                var infos = [];
-                
-                results.forEach(function (el) {
-                    //infos.push(el.power + " Power - " + el.player);
-                    infos.push("(" + el.power + ") " + el.player);
-                    charCounter++;
-                    starCharCounter++;
-                });
-                
-                if(infos.length > 0) {
-                    
-                    var text = infos.join("\n");
-                    if(text.length > 1024)
-                        text = text.substr(0, 1020) + "...";
-                    
-                    embed.addField("**" + i + " Sterne (" + starCharCounter + ")**", text);
+                var users = body[baseId];
+                if(users === undefined) {
+                    console.log("users undefined");
+                    return;
                 }
+                
+                users = users.sort(function(a, b) {
+            
+                    if(a.rarity > b.rarity)
+                        return 1;
+                    if(a.rarity < b.rarity)
+                        return -1;
+                    
+                    if(a.power > b.power)
+                        return 1;
+                    if(a.power < b.power)
+                        return -1;
+                    
+                    var nameA = a.player.toUpperCase();
+                    var nameB = b.player.toUpperCase();
+                    if (nameA < nameB)
+                        return -1;
+                    if (nameA > nameB)
+                        return 1;
+                        
+                    return 0;
+                });
+                
+                const embed = new Discord.RichEmbed();
+                embed.setColor(3800852);
+                embed.setThumbnail(imageUrl);
+                
+                var charCounter = 0;
+                
+                for(var i = stars; i <= 7; i++) {
+                
+                    var results = users.filter(function(el) {
+                        return el.rarity == i;
+                    });
+                    
+                    var starCharCounter = 0;
+                    var infos = [];
+                    
+                    results.forEach(function (el) {
+                        infos.push(el.power + " Power - " + el.player);
+                        //infos.push("(" + el.power + ") " + el.player);
+                        charCounter++;
+                        starCharCounter++;
+                    });
+                    
+                    if(infos.length > 0) {
+                        
+                        var text = infos.join("\n");
+                        if(text.length > 1024)
+                            text = text.substr(0, 1020) + "...";
+                        
+                        embed.addField("**" + i + " Sterne (" + starCharCounter + ")**", text);
+                    }
+                }
+                
+                embed.setTitle(charName + " (" + charCounter + ")");
+                
+                message.channel.send({embed});
             }
-            
-            embed.setTitle(charName + " (" + charCounter + ")");
-            
-            message.channel.send({embed});
-        }
-    })
+        })
+    }
+    catch(ex) {
+            message.channel.send("Interner Fehler... probiere es gleich erneut");
+    }
 }
 
 function readInfos(url, message, messageElements) {
@@ -153,65 +159,45 @@ function readInfos(url, message, messageElements) {
         charName += messageElements[i];
     }
     
-    request({ url: url, json: true }, function (error, response, body) {
+    try {
+    
+        request({ url: url, json: true }, function (error, response, body) {
 
-        if (!error && response.statusCode === 200) {
-            
-            /*
-            var base_id = "";
-            var image_url = "";
-            var char_name = "";
-            
-            body.some(function (el, index, _arr) {
+            if (!error && response.statusCode === 200) {
                 
-                var name = el.name.toLowerCase();
-                if(name == charName.toLowerCase() || getShortName(name).toLowerCase() == charName.toLowerCase()) {
-                    
-                    base_id = el.base_id;
-                    image_url = el.image;
-                    char_name = el.name;
-                    return true;
+                var toons = findToons(body, charName);
+                if(toons.length == 0) {
+                    message.channel.send("Kein Treffer gefunden");
+                    return;
                 }
                 
-                return false;
-            });
-            
-            if(base_id == "") {
-                message.channel.send("Kein Treffer gefunden...");
-                return;
+                if(toons.length > 3) {
+                    message.channel.send(toons.length + " Treffer gefunden. Bitte schränke die Suche ein.");
+                    return;
+                }
+                
+                for(var i = 0; i < toons.length; i++) {
+                    var toon = toons[i];
+                    readGuildInfos(message, toon.base_id, stars, toon.name, "https:" + toon.image);
+                }
             }
-            */
-            
-            var toons = findToons(body, charName);
-            if(toons.length == 0) {
-                message.channel.send("Kein Treffer gefunden");
-                return;
-            }
-            
-            if(toons.length > 3) {
-                message.channel.send(toons.length + " Treffer gefunden. Bitte schränke die Suche ein.");
-                return;
-            }
-            
-            for(var i = 0; i < toons.length; i++) {
-                var toon = toons[i];
-                readGuildInfos(message, toon.base_id, stars, toon.name, "https:" + toon.image);
-            }
-            
-            //readGuildInfos(message, base_id, stars, char_name, "https:" + image_url);
-        }
-    })
+        })
+    }
+    catch(ex) {
+            message.channel.send("Interner Fehler... probiere es gleich erneut");
+    }
 }
 
 function findToons(toons, charName) {
 
+    var searchName = charName.toLowerCase();
     var results = [];
     
     for(var i = 0; i < toons.length; i++) {
         
         var toon = toons[i];
         var name = toon.name.toLowerCase();
-        if(name == charName.toLowerCase() || getShortName(name).toLowerCase() == charName.toLowerCase()) {
+        if(name == searchName || getShortName(name).toLowerCase() == searchName) {
             results.push(toon);
             break;
         }
@@ -241,39 +227,45 @@ function getShortName(s) {
 
 function findRareChars(message) {
 
-    request({ url: CHAR_URL, json: true }, function (charError, charResponse, chars) {
+    try {
 
-        if (!charError && charResponse.statusCode === 200) {
+        request({ url: CHAR_URL, json: true }, function (charError, charResponse, chars) {
 
-            request({ url: GUILD_URL, json: true }, function (error, response, body) {
+            if (!charError && charResponse.statusCode === 200) {
 
-                if (!error && response.statusCode === 200) {
-                    
-                    var rareChars = [];
-                    
-                    for (var i = 0; i < chars.length; i++) {
+                request({ url: GUILD_URL, json: true }, function (error, response, body) {
+
+                    if (!error && response.statusCode === 200) {
                         
-                        var character = chars[i];
-                        var baseId = character.base_id;
-                        var users = body[baseId];
-                        var counter = 0;
+                        var rareChars = [];
                         
-                        for(var j = 0; j < users.length; j++) {
-                            var user = users[j];
-                            if(user.rarity == 7)
-                                counter++;
+                        for (var i = 0; i < chars.length; i++) {
+                            
+                            var character = chars[i];
+                            var baseId = character.base_id;
+                            var users = body[baseId];
+                            var counter = 0;
+                            
+                            for(var j = 0; j < users.length; j++) {
+                                var user = users[j];
+                                if(user.rarity == 7)
+                                    counter++;
+                            }
+                            
+                            if(counter < 12)
+                                rareChars.push(character.name + " (" + counter + "/12)");
                         }
                         
-                        if(counter < 12)
-                            rareChars.push(character.name + " (" + counter + "/12)");
+                        var rareCharMessage = rareChars.join('\n');
+                        message.channel.send(rareCharMessage);
                     }
-                    
-                    var rareCharMessage = rareChars.join('\n');
-                    message.channel.send(rareCharMessage);
-                }
-            })
-        }
-    })
+                })
+            }
+        })
+    }
+    catch(ex) {
+            message.channel.send("Interner Fehler... probiere es gleich erneut");
+    }
 }
 
 const commandModifier = '!';
