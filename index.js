@@ -246,6 +246,9 @@ function findRareChars(message) {
                             var users = body[baseId];
                             var counter = 0;
                             
+                            if(users === undefined)
+                                continue;
+                            
                             for(var j = 0; j < users.length; j++) {
                                 var user = users[j];
                                 if(user.rarity == 7)
