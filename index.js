@@ -221,7 +221,8 @@ function findToons(toons, charName) {
         return results;
 
     toons.forEach(function (toon) {
-        if(toon.name.includes(charName))
+        var name = toon.name.toLowerCase();
+        if(name.includes(charName))
             results.push(toon);
     });
     
