@@ -205,16 +205,21 @@ function readInfos(url, message, messageElements) {
 
 function findToons(toons, charName) {
 
+    var results = [];
+    
     for(var i = 0; i < toons.length; i++) {
         
         var toon = toons[i];
         var name = toon.name.toLowerCase();
-        if(name == charName.toLowerCase() || getShortName(name).toLowerCase() == charName.toLowerCase())
-            return toon;
+        if(name == charName.toLowerCase() || getShortName(name).toLowerCase() == charName.toLowerCase()) {
+            results.push(toon);
+            break;
+        }
     }
 
-    var results = [];
-    
+    if(results.length > 0)
+        return results;
+
     toons.forEach(function (toon) {
         if(toon.includes(charName))
             results.push(toon);
