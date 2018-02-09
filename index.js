@@ -157,6 +157,7 @@ function readInfos(url, message, messageElements) {
 
         if (!error && response.statusCode === 200) {
             
+            /*
             var base_id = "";
             var image_url = "";
             var char_name = "";
@@ -179,10 +180,47 @@ function readInfos(url, message, messageElements) {
                 message.channel.send("Kein Treffer gefunden...");
                 return;
             }
+            */
             
-            readGuildInfos(message, base_id, stars, char_name, "https:" + image_url);
+            var toons = findToons(body, charName);
+            if(toons.length == 0) {
+                message.channel.send("Kein Treffer gefunden");
+                return;
+            }
+            
+            if(toons.length > 3) {
+                message.channel.send(toons.length + " Treffer gefunden. Bitte schränke die Suche ein.");
+                return;
+            }
+            
+            for(var i = 0; i < toons.length; i++) {
+                var toon = toons[i];
+                readGuildInfos(message, toon.base_id, stars, toon.name, "https:" + toon.image);
+            }
+            
+            //readGuildInfos(message, base_id, stars, char_name, "https:" + image_url);
         }
     })
+}
+
+function findToons(toons, charName) {
+
+    for(var i = 0; i < toons.length; i++) {
+        
+        var toon = toons[i];
+        var name = toon.name.toLowerCase();
+        if(name == charName.toLowerCase() || getShortName(name).toLowerCase() == charName.toLowerCase())
+            return toon;
+    }
+
+    var results = [];
+    
+    toons.forEach(function (toon) {
+        if(toon.includes(charName))
+            results.push(toon);
+    });
+    
+    return results;
 }
 
 function getShortName(s) {
