@@ -115,7 +115,7 @@ function readGuildInfos(message, baseId, stars, charName, imageUrl) {
                     var infos = [];
                     
                     results.forEach(function (el) {
-                        infos.push(el.power + " Power - " + el.player);
+                        infos.push(el.power.toLocaleString() + " Power - " + el.player);
                         //infos.push("(" + el.power + ") " + el.player);
                         charCounter++;
                         starCharCounter++;
