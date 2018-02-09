@@ -125,7 +125,7 @@ function readGuildInfos(message, baseId, stars, charName, imageUrl) {
                     if(text.length > 1024)
                         text = text.substr(0, 1020) + "...";
                     
-                    embed.addField("**" + i + " Sterne (" + starCharCounter + ")**", text, true);
+                    embed.addField("**" + i + " Sterne (" + starCharCounter + ")**", text);
                 }
             }
             
