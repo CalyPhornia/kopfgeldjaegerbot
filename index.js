@@ -114,7 +114,7 @@ function readGuildInfos(message, baseId, stars, charName, imageUrl) {
                 
                 results.forEach(function (el) {
                     //infos.push(el.power + " Power - " + el.player);
-                    infos.push(el.player + " (" + el.power + ")");
+                    infos.push("(" + el.power + ") " + el.player);
                     charCounter++;
                     starCharCounter++;
                 });
