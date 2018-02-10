@@ -12,6 +12,13 @@ try {
     const adapter = new FileSync('db.json');
     const db = low(adapter);
 
+    // For performance, use .value() instead of .write() if you're only reading from db
+    var posts = db.get('posts')
+      .find({ id: 1 })
+      .value();
+      
+    console.log(posts);
+
     // Set some defaults (required if your JSON file is empty)
     db.defaults({ posts: [], user: {}, count: 0 })
       .write()
