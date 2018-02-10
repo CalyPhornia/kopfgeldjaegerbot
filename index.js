@@ -1,6 +1,19 @@
 var fs = require("fs");
 var request = require('request');
 var schedule = require('node-schedule');
+var mysql = require('mysql');
+
+var con = mysql.createConnection({
+  host: process.env.MYSQL_HOST,
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD
+});
+
+con.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
+});
+
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
