@@ -1,28 +1,40 @@
-var fs = require("fs");
-var request = require('request');
-var schedule = require('node-schedule');
-var mysql = require('mysql');
-
-var con = mysql.createConnection({
-  host: process.env.MYSQL_HOST,
-  user: process.env.MYSQL_USER,
-  password: process.env.MYSQL_PASSWORD,
-  database: process.env.MYSQL_DATABASE
-});
-
-con.connect(function(err) {
-  if (err) {
-    console.log("Error");
-    return;
-  }
-  console.log("Connected!");
-});
-
+const fs = require("fs");
+const request = require('request');
+const schedule = require('node-schedule');
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-var CHAR_URL = "https://swgoh.gg/api/characters/?format=json";
-var GUILD_URL = "https://swgoh.gg/api/guilds/9563/units/?format=json";
+try {
+
+    const low = require('lowdb');
+    const FileSync = require('lowdb/adapters/FileSync');
+
+    const adapter = new FileSync('db.json');
+    const db = low(adapter);
+
+    // Set some defaults (required if your JSON file is empty)
+    db.defaults({ posts: [], user: {}, count: 0 })
+      .write()
+
+    // Add a post
+    db.get('posts')
+      .push({ id: 1, title: 'lowdb is awesome'})
+      .write()
+
+    // Set a user using Lodash shorthand syntax
+    db.set('user.name', 'typicode')
+      .write()
+      
+    // Increment count
+    db.update('count', n => n + 1)
+      .write()
+}
+catch(ex) {
+        console.log(ex);
+}
+
+const CHAR_URL = "https://swgoh.gg/api/characters/?format=json";
+const GUILD_URL = "https://swgoh.gg/api/guilds/9563/units/?format=json";
 
 client.on('ready', () => {
     
