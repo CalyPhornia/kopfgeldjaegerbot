@@ -4,42 +4,6 @@ const schedule = require('node-schedule');
 const Discord = require('discord.js');
 const client = new Discord.Client();
 
-try {
-
-    const low = require('lowdb');
-    const FileSync = require('lowdb/adapters/FileSync');
-
-    const adapter = new FileSync('db.json');
-    const db = low(adapter);
-
-    // For performance, use .value() instead of .write() if you're only reading from db
-    var posts = db.get('posts')
-      .find({ id: 1 })
-      .value();
-      
-    console.log(posts);
-
-    // Set some defaults (required if your JSON file is empty)
-    db.defaults({ posts: [], user: {}, count: 0 })
-      .write()
-
-    // Add a post
-    db.get('posts')
-      .push({ id: 1, title: 'lowdb is awesome'})
-      .write()
-
-    // Set a user using Lodash shorthand syntax
-    db.set('user.name', 'typicode')
-      .write()
-      
-    // Increment count
-    db.update('count', n => n + 1)
-      .write()
-}
-catch(ex) {
-        console.log(ex);
-}
-
 const CHAR_URL = "https://swgoh.gg/api/characters/?format=json";
 const GUILD_URL = "https://swgoh.gg/api/guilds/9563/units/?format=json";
 
@@ -103,7 +67,7 @@ function readGuildInfos(message, baseId, stars, charName, imageUrl) {
     
     try {
     
-        request({ url: "https://swgoh.gg/api/guilds/9563/units/?format=json", json: true }, function (error, response, body) {
+        request({ url: GUILD_URL, json: true }, function (error, response, body) {
 
             if (!error && response.statusCode === 200) {
                 
